@@ -19,9 +19,9 @@ public class Loop {
         eventHandler = new MyEventHandler();
         this.world.setWidth(window.getCanvasPanel().getWidth());
         this.world.setHeight(window.getCanvasPanel().getHeight());
-        this.world.setCellD(window.getCellD());
-        this.world.setG(window.getG());
-        this.world.setDt(window.getDt());
+        this.world.setCellD(window.getButtonPanel().getCellD());
+        this.world.setG(window.getButtonPanel().getG());
+        this.world.setDt(window.getButtonPanel().getDt());
     }
     
     public void loop(){

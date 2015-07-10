@@ -30,74 +30,74 @@ public class MyEventHandler {
                 ActionEvent ae = (ActionEvent)e;
   
                 // random
-                if(ae.getSource() == window.getRandomButton())
-                    world.AddRandom(window.getRandN(), window.getR(), window.getM()); 
+                if(ae.getSource() == window.getButtonPanel().getRandomButton())
+                    world.AddRandom(window.getButtonPanel().getRandN(), window.getButtonPanel().getR(), window.getButtonPanel().getM()); 
                 // apply
-                else if(ae.getSource() == window.getApplyChangesButton()){
-                    world.setG(window.getG());
-                    world.setDt(window.getDt());
-                    world.setCellD(window.getCellD());
+                else if(ae.getSource() == window.getButtonPanel().getApplyChangesButton()){
+                    world.setG(window.getButtonPanel().getG());
+                    world.setDt(window.getButtonPanel().getDt());
+                    world.setCellD(window.getButtonPanel().getCellD());
                     world.setFieldList();
                 }
                 // clear
-                else if(ae.getSource() == window.getClearButton()){
+                else if(ae.getSource() == window.getButtonPanel().getClearButton()){
                     world.clear();
                 }
                 // pause
-                else if(ae.getSource() == window.getStartStopButton())
+                else if(ae.getSource() == window.getButtonPanel().getStartStopButton())
                     world.setRunning(!world.isRunning());
                 // save
-                else if(ae.getSource() == window.getSaveButton())
+                else if(ae.getSource() == window.getButtonPanel().getSaveButton())
                     world.saveStateToFile();
                 // load
-                else if(ae.getSource() == window.getLoadButton())
+                else if(ae.getSource() == window.getButtonPanel().getLoadButton())
                     world.loadStateFromFile();
                 // field radio buttons
-                else if(ae.getSource() == window.getNonWithVectorsRadioButton()){
+                else if(ae.getSource() == window.getButtonPanel().getNonWithVectorsRadioButton()){
                     window.getCanvasPanel().setParticleDrawer(new VectorParticleDrawer());
                     window.getCanvasPanel().setFieldDrawer(null);
                     world.setBackgroundColor(Color.WHITE);
                     world.setFieldAccCalc(null);
                 }
-                else if(ae.getSource() == window.getNonRadioButton()){
+                else if(ae.getSource() == window.getButtonPanel().getNonRadioButton()){
                     window.getCanvasPanel().setParticleDrawer(new SimpleParticleDrawer());
                     window.getCanvasPanel().setFieldDrawer(null);
                     world.setBackgroundColor(Color.WHITE);
                     world.setFieldAccCalc(null);
                 }
-                else if(ae.getSource() == window.getColorRadioButton()){
+                else if(ae.getSource() == window.getButtonPanel().getColorRadioButton()){
                     window.getCanvasPanel().setParticleDrawer(new SimpleParticleDrawer());
                     window.getCanvasPanel().setFieldDrawer(new ColorFieldDrawer());
                     world.setBackgroundColor(Color.WHITE);
-                    if(window.getBruteRadioButton().isSelected())
+                    if(window.getButtonPanel().getBruteRadioButton().isSelected())
                         world.setFieldAccCalc(new BruteForceAccCalc());
                     else 
                         world.setFieldAccCalc(new QTreeAccCalc());
                 }
-                else if(ae.getSource() == window.getVectorRadioButton()){
+                else if(ae.getSource() == window.getButtonPanel().getVectorRadioButton()){
                     window.getCanvasPanel().setParticleDrawer(new SimpleParticleDrawer());
                     window.getCanvasPanel().setFieldDrawer(new VectorFieldDrawer());
                     world.setBackgroundColor(Color.WHITE);
-                    if(window.getBruteRadioButton().isSelected())
+                    if(window.getButtonPanel().getBruteRadioButton().isSelected())
                         world.setFieldAccCalc(new BruteForceAccCalc());
                     else 
                         world.setFieldAccCalc(new QTreeAccCalc());
                 }
-                else if(ae.getSource() == window.getMixRadioButton()){
+                else if(ae.getSource() == window.getButtonPanel().getMixRadioButton()){
                     window.getCanvasPanel().setParticleDrawer(new SimpleParticleDrawer());
                     window.getCanvasPanel().setFieldDrawer(new MixFieldDrawer());
                     world.setBackgroundColor(Color.BLACK);
-                    if(window.getBruteRadioButton().isSelected())
+                    if(window.getButtonPanel().getBruteRadioButton().isSelected())
                         world.setFieldAccCalc(new BruteForceAccCalc());
                     else 
                         world.setFieldAccCalc(new QTreeAccCalc());
                 }
                 // calc radio butons
-                else if(ae.getSource() == window.getBruteRadioButton()){
+                else if(ae.getSource() == window.getButtonPanel().getBruteRadioButton()){
                     world.setParticleAccCalc(new BruteForceAccCalc());
                     world.setFieldAccCalc(new BruteForceAccCalc());
                 }
-                else if(ae.getSource() == window.getQTreeRadioButton()){
+                else if(ae.getSource() == window.getButtonPanel().getQTreeRadioButton()){
                     world.setParticleAccCalc(new QTreeAccCalc());
                     world.setFieldAccCalc(new QTreeAccCalc());
                 }
@@ -112,7 +112,7 @@ public class MyEventHandler {
                 }
                 else if(me.getID() == MouseEvent.MOUSE_RELEASED ){ // performs actions on mouse release based on the saved press cooridnates
                     if((me.getModifiersEx() & MouseEvent.CTRL_DOWN_MASK) != 0)                                                
-                        world.AddParticle(world.getPressedX(), world.getPressedY(), (me.getX() - world.getPressedX())*0.1, (me.getY() - world.getPressedY())*0.1, window.getM());
+                        world.AddParticle(world.getPressedX(), world.getPressedY(), (me.getX() - world.getPressedX())*0.1, (me.getY() - world.getPressedY())*0.1, window.getButtonPanel().getM());
                     else if((me.getModifiersEx() & MouseEvent.SHIFT_DOWN_MASK) != 0)
                         world.zoom(world.getPressedX(),world.getPressedY(),me.getX(),me.getY());
                     else if((me.getModifiersEx() & MouseEvent.ALT_DOWN_MASK) != 0)

@@ -43,7 +43,7 @@ public class CanvasPanel extends JPanel{
 
         panelG2D = (Graphics2D)getGraphics();
   
-        if(!window.getPathCheck()){               
+        if(!window.getButtonPanel().getPathCheck()){               
             imgG2D.setColor(world.getBackgroundColor());
             imgG2D.fillRect(0,0,getWidth(), getHeight());
 
@@ -56,7 +56,7 @@ public class CanvasPanel extends JPanel{
         dImgG2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER)); 
           
         // path
-        if(window.getPathCheck())
+        if(window.getButtonPanel().getPathCheck())
             pathDrawer.draw(world.getParticleList(), sImgG2D);
         
         // field
@@ -82,7 +82,7 @@ public class CanvasPanel extends JPanel{
         dImgG2D.drawLine(10, getHeight() - 45, (int)(100*world.getScale()), getHeight() - 45);
         dImgG2D.drawString(String.format("%.4f"+ " %%",world.getScale()*100), 40, getHeight() - 50);
 
-        if(window.getPathCheck()) imgG2D.drawImage(sImg, 0, 0, null);                          
+        if(window.getButtonPanel().getPathCheck()) imgG2D.drawImage(sImg, 0, 0, null);                          
         imgG2D.drawImage(dImg, 0, 0, null);           
         panelG2D.drawImage(img, 0, 0, null);
 
