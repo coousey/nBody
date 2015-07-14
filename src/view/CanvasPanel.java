@@ -69,9 +69,10 @@ public class CanvasPanel extends JPanel{
         dImgG2D.setColor(Color.RED);
         
         // mass center
-        dImgG2D.drawOval((int)(world.getMassCenterX() - world.getMassCenterCircleSize()/2),
-                (int)(world.getMassCenterY()- world.getMassCenterCircleSize()/2),
-                (int)world.getMassCenterCircleSize(),(int)world.getMassCenterCircleSize());
+        if(world.getN() > 1)
+            dImgG2D.drawOval((int)(world.getMassCenterX() - world.getMassCenterCircleSize()/2),
+                             (int)(world.getMassCenterY()- world.getMassCenterCircleSize()/2),
+                             (int)world.getMassCenterCircleSize(),(int)world.getMassCenterCircleSize());
        
         dImgG2D.drawString("n             " + Integer.toString(world.getN()), 10, 15); 
         dImgG2D.drawString("total m   " + Integer.toString((int)world.getTotalMass()), 10, 35);
