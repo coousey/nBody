@@ -17,12 +17,14 @@ public class Loop {
         this.world = world;
         this.window = window;
         eventHandler = new MyEventHandler();
+        
         world.setWidth(window.getCanvasPanel().getWidth());
         world.setHeight(window.getCanvasPanel().getHeight());
         world.setCellD(window.getButtonPanel().getCellD());
         world.setG(window.getButtonPanel().getG());
         world.setDt(window.getButtonPanel().getDt());
         window.getCanvasPanel().setBufferedImages();
+        
         world.setAccCalc(AccelerationCalcFactory.getAccCalc((String) window.getButtonPanel().getCalcComboBox().getSelectedItem()));
         window.getCanvasPanel().setDrawer(FieldDrawerFactory.getEntityDrawer((String) window.getButtonPanel().getDrawerComboBox().getSelectedItem()));
     }

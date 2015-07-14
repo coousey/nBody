@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 import nbody.pkg.Loop;
 import nbody.pkg.RandomGenerator;
 import nbody.pkg.accelerationCalculators.AccelerationCalculator;
-import nbody.pkg.accelerationCalculators.QTreeAccCalc;
 
 public class World {
       
@@ -34,7 +33,7 @@ public class World {
     private double massCenterX;
     private double massCenterY;
     private double massCenterCircleSize = 10;
-    private Color backgroundColor = Color.WHITE;
+    private Color backgroundColor;
     private int nrOfParticlesCreated;
     
     private AccelerationCalculator accCalc;
