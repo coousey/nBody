@@ -75,7 +75,7 @@ public class ButtonPanel extends JPanel {
     public ButtonPanel(Window window, Listeners listeners){
 
         setBorder(new EmptyBorder(10, 10, 10, 10) );
-        setLayout(new GridLayout(20,2,5,5));      
+        setLayout(new GridLayout(24,2,5,5));      
         
         startStopButton.addActionListener(listeners.getActionListener());
         add(startStopButton);
@@ -89,6 +89,8 @@ public class ButtonPanel extends JPanel {
         loadButton.addActionListener(listeners.getActionListener());
         add(loadButton);
         
+        add(new JPanel());
+        add(new JPanel());
         add(new JPanel());
       
         randomButton.addActionListener(listeners.getActionListener());
@@ -107,6 +109,8 @@ public class ButtonPanel extends JPanel {
         add(mField);
         
         add(new JPanel());
+        add(new JPanel());
+        add(new JPanel());
         
         applyChangesButton.addActionListener(listeners.getActionListener());
         add(applyChangesButton);
@@ -122,12 +126,18 @@ public class ButtonPanel extends JPanel {
         cellDLabel.setHorizontalAlignment(JLabel.CENTER);
         add(cellDLabel);
         add(cellDField);
+        
+        add(new JPanel());
+        add(new JPanel());
            
         pathCheck.setSelected(false);
         pathCheck.addActionListener(listeners.getActionListener());
         pathLabel.setHorizontalAlignment(JLabel.CENTER);
         add(pathLabel);
         add(pathCheck);
+        
+        add(new JPanel());
+        add(new JPanel());
 
         nonWithVectorsRadioButton.addActionListener(listeners.getActionListener());
         nonWithVectorsLabel.setHorizontalAlignment(JLabel.CENTER);
