@@ -25,7 +25,7 @@ public class Window extends JFrame{
         this.add(canvasPanel);
         
         buttonPanel = new ButtonPanel(this, listeners);     
-        this.add(buttonPanel,BorderLayout.NORTH);
+        this.add(buttonPanel,BorderLayout.EAST);
                
         this.setResizable(true);
         this.setVisible(true);

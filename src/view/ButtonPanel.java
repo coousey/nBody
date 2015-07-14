@@ -2,6 +2,9 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridLayout;
+import javax.swing.Box;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -9,146 +12,166 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 import nbody.pkg.Listeners;
 
 public class ButtonPanel extends JPanel {
     
-    private final JButton randomButton = new JButton("rand");
-    private final JButton clearButton = new JButton("clr");
-    private final JButton startStopButton = new JButton("► / ||");
-    private final JButton saveButton = new JButton("s");
-    private final JButton loadButton = new JButton("l");
-    private final JButton applyChangesButton = new JButton("apply");
+    private JButton startStopButton = new JButton("► / ||");
+    private JButton clearButton = new JButton("clear");
+    private JButton saveButton = new JButton("save");
+    private JButton loadButton = new JButton("load");
+    private JButton randomButton = new JButton("random");
+    private JButton applyChangesButton = new JButton("apply");
+
+    private JLabel randNLabel = new JLabel("n");
+    private JTextField randNField = new JTextField("100");
+
+    private JLabel rLabel = new JLabel("r");
+    private JTextField rField = new JTextField("200");
+
+    private JLabel mLabel = new JLabel("m");
+    private JTextField mField = new JTextField("10");
+
+    private JLabel dtLabel = new JLabel("dt");
+    private JTextField dtField = new JTextField("0.1");
+
+    private JLabel GLabel = new JLabel("G");
+    private JTextField GField = new JTextField("1");
+
+    private JLabel cellDLabel = new JLabel("cellD");
+    private JTextField cellDField = new JTextField("20");
     
-    private final JLabel randNLabel = new JLabel("n");
-    private final JTextField randNField = new JTextField("100");
-    private final JLabel rLabel = new JLabel("r");
-    private final JTextField rField = new JTextField("200");
-    private final JLabel mLabel = new JLabel("m");
-    private final JTextField mField = new JTextField("10");
-    private final JLabel dtLabel = new JLabel("dt");
-    private final JTextField dtField = new JTextField("0.1");
-    private final JLabel GLabel = new JLabel("G");
-    private final JTextField GField = new JTextField("1");
-    private final JLabel cellDLabel = new JLabel("cellD");
-    private final JTextField cellDField = new JTextField("20");
-    
-    private final JLabel pathLabel = new JLabel("paht");
+    private final JLabel pathLabel = new JLabel("draw paht");
     private final JCheckBox pathCheck = new JCheckBox();
        
-    private final JLabel nonWithVectorsLabel = new JLabel("vec");
+    private final JLabel nonWithVectorsLabel = new JLabel("vectors");
     private final JRadioButton nonWithVectorsRadioButton = new JRadioButton();
-    private final JLabel nonLabel = new JLabel("non");
-    private final JRadioButton nonRadioButton = new JRadioButton();
-    private final JLabel colorLabel = new JLabel("col");
-    private final JRadioButton colorRadioButton = new JRadioButton();
-    private final JLabel vectorFieldLabel = new JLabel("vec");
-    private final JRadioButton vectorRadioButton = new JRadioButton();
-    private final JLabel mixLabel = new JLabel("mix");
-    private final JRadioButton mixRadioButton = new JRadioButton();
-    private final ButtonGroup fieldButtonGroup = new ButtonGroup();
     
-    private final JLabel bruteLabel = new JLabel("b");
+    private final JLabel nonLabel = new JLabel("no field");
+    private final JRadioButton nonRadioButton = new JRadioButton();
+    
+    private final JLabel colorLabel = new JLabel("color field");
+    private final JRadioButton colorRadioButton = new JRadioButton();
+    
+    private final JLabel vectorFieldLabel = new JLabel("vector field");
+    private final JRadioButton vectorRadioButton = new JRadioButton();
+    
+    private final JLabel mixLabel = new JLabel("mix field");
+    private final JRadioButton mixRadioButton = new JRadioButton();
+    
+    private final ButtonGroup fieldButtonGroup = new ButtonGroup();
+
+    private final JLabel bruteLabel = new JLabel("brute force");
     private final JRadioButton bruteRadioButton = new JRadioButton();
-    private final JLabel qTreeLabel = new JLabel("q");
+
+    private final JLabel qTreeLabel = new JLabel("barnes-hut");
     private final JRadioButton qTreeRadioButton = new JRadioButton();
+    
     private final ButtonGroup calcButtonGroup = new ButtonGroup();
     
     private Listeners listeners;
     
     public ButtonPanel(Window window, Listeners listeners){
+
+        setBorder(new EmptyBorder(10, 10, 10, 10) );
+        setLayout(new GridLayout(20,2,5,5));      
         
-        // buttons
-        randomButton.setPreferredSize(new Dimension(80,22));
-        randomButton.addActionListener(listeners.getActionListener());
-        add(randomButton);
-        
-        clearButton.setPreferredSize(new Dimension(80,22));
-        clearButton.addActionListener(listeners.getActionListener());
-        add(clearButton);
-        
-        startStopButton.setPreferredSize(new Dimension(80,22));
         startStopButton.addActionListener(listeners.getActionListener());
         add(startStopButton);
         
-        saveButton.setPreferredSize(new Dimension(50,22));
+        clearButton.addActionListener(listeners.getActionListener());
+        add(clearButton);
+        
         saveButton.addActionListener(listeners.getActionListener());
         add(saveButton);
-        
-        loadButton.setPreferredSize(new Dimension(50,22));
+         
         loadButton.addActionListener(listeners.getActionListener());
         add(loadButton);
         
-        // fields and labels
+        add(new JPanel());
+      
+        randomButton.addActionListener(listeners.getActionListener());
+        add(randomButton); 
+        
+        randNLabel.setHorizontalAlignment(JLabel.CENTER);
         add(randNLabel);
-        randNField.setPreferredSize(new Dimension(60,22));
         add(randNField);
         
+        rLabel.setHorizontalAlignment(JLabel.CENTER);
         add(rLabel);
-        rField.setPreferredSize(new Dimension(60,22));
         add(rField);
         
+        mLabel.setHorizontalAlignment(JLabel.CENTER);
         add(mLabel);
-        mField.setPreferredSize(new Dimension(60,22));
         add(mField);
         
-        applyChangesButton.setPreferredSize(new Dimension(80,22));
+        add(new JPanel());
+        
         applyChangesButton.addActionListener(listeners.getActionListener());
         add(applyChangesButton);
         
+        dtLabel.setHorizontalAlignment(JLabel.CENTER);
         add(dtLabel);
-        dtField.setPreferredSize(new Dimension(60,22));
         add(dtField);
         
+        GLabel.setHorizontalAlignment(JLabel.CENTER);
         add(GLabel);
-        GField.setPreferredSize(new Dimension(60,22));
         add(GField);
         
+        cellDLabel.setHorizontalAlignment(JLabel.CENTER);
         add(cellDLabel);
-        cellDField.setPreferredSize(new Dimension(60,22));
         add(cellDField);
            
-        // checks and labels
         pathCheck.setSelected(false);
         pathCheck.addActionListener(listeners.getActionListener());
+        pathLabel.setHorizontalAlignment(JLabel.CENTER);
         add(pathLabel);
         add(pathCheck);
-        
-        // field radio buttons
+
         nonWithVectorsRadioButton.addActionListener(listeners.getActionListener());
+        nonWithVectorsLabel.setHorizontalAlignment(JLabel.CENTER);
         add(nonWithVectorsLabel);       
         add(nonWithVectorsRadioButton); 
         
         nonRadioButton.setSelected(true);
         nonRadioButton.addActionListener(listeners.getActionListener());
+        nonLabel.setHorizontalAlignment(JLabel.CENTER);
         add(nonLabel);       
         add(nonRadioButton); 
         
         colorRadioButton.addActionListener(listeners.getActionListener());
+        colorLabel.setHorizontalAlignment(JLabel.CENTER);
         add(colorLabel);
         add(colorRadioButton); 
         
         vectorRadioButton.addActionListener(listeners.getActionListener());
+        vectorFieldLabel.setHorizontalAlignment(JLabel.CENTER);
         add(vectorFieldLabel);
         add(vectorRadioButton);
         
         mixRadioButton.addActionListener(listeners.getActionListener());
+        mixLabel.setHorizontalAlignment(JLabel.CENTER);
         add(mixLabel);
         add(mixRadioButton);
+        
+        add(new JPanel());
+        add(new JPanel());
         
         fieldButtonGroup.add(nonWithVectorsRadioButton);
         fieldButtonGroup.add(nonRadioButton);
         fieldButtonGroup.add(colorRadioButton);
         fieldButtonGroup.add(vectorRadioButton);
         fieldButtonGroup.add(mixRadioButton);
-        
-        // calc radio buttons
+
         bruteRadioButton.addActionListener(listeners.getActionListener());
+        bruteLabel.setHorizontalAlignment(JLabel.CENTER);
         add(bruteLabel);
         add(bruteRadioButton);
         
         qTreeRadioButton.setSelected(true);
         qTreeRadioButton.addActionListener(listeners.getActionListener());
+        qTreeLabel.setHorizontalAlignment(JLabel.CENTER);
         add(qTreeLabel);
         add(qTreeRadioButton);
         

@@ -22,6 +22,7 @@ public class Loop {
         this.world.setCellD(window.getButtonPanel().getCellD());
         this.world.setG(window.getButtonPanel().getG());
         this.world.setDt(window.getButtonPanel().getDt());
+        window.getCanvasPanel().setBufferedImages();
     }
     
     public void loop(){
