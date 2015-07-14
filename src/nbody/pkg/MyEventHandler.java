@@ -34,6 +34,7 @@ public class MyEventHandler {
                 // clear
                 else if(ae.getSource() == window.getButtonPanel().getClearButton()){
                     world.clear();
+                    window.getCanvasPanel().drawBackgroud();
                 }
                 // pause
                 else if(ae.getSource() == window.getButtonPanel().getStartStopButton())

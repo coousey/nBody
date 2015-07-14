@@ -38,18 +38,9 @@ public class CanvasPanel extends JPanel{
 
         panelG2D = (Graphics2D)getGraphics();
         
-        if(window.getButtonPanel().getDrawerComboBox().getSelectedItem().equals("mix field")) // setting black backgroud for mix field
-            world.setBackgroundColor(Color.BLACK);
-        else world.setBackgroundColor(Color.WHITE);
-  
-        if(!window.getButtonPanel().getDrawerComboBox().getSelectedItem().equals("path")){               
-            imgG2D.setColor(world.getBackgroundColor());
-            imgG2D.fillRect(0,0,getWidth(), getHeight());
-
-            sImgG2D.setColor(world.getBackgroundColor());
-            sImgG2D.fillRect(0,0,getWidth(), getHeight());
-        }
-
+        if(!window.getButtonPanel().getDrawerComboBox().getSelectedItem().equals("path"))
+            drawBackgroud();
+        
         dImgG2D.setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR)); // fill with transparency so it wont cover the path
         dImgG2D.fillRect(0,0, getWidth(), getHeight());  
         dImgG2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER)); 
@@ -126,7 +117,21 @@ public class CanvasPanel extends JPanel{
                     (int)world.getMassCenterCircleSize(),(int)world.getMassCenterCircleSize());  
     }
     
-    public void saveImage(int cycles){
+    public void drawBackgroud(){
+            
+        if(window.getButtonPanel().getDrawerComboBox().getSelectedItem().equals("mix field")) // setting black backgroud for mix field
+            world.setBackgroundColor(Color.BLACK);
+        else world.setBackgroundColor(Color.WHITE);
+
+        imgG2D.setColor(world.getBackgroundColor());
+        imgG2D.fillRect(0,0,getWidth(), getHeight());
+
+        sImgG2D.setColor(world.getBackgroundColor());
+        sImgG2D.fillRect(0,0,getWidth(), getHeight());
+    }
+    
+    // not used right now
+    public void saveImage(int cycles){ 
         
     try {
         ImageIO.write( dImg, "PNG", new File("saved_"+cycles+".png") );

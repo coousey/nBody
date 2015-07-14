@@ -210,9 +210,7 @@ public class World {
 
             br.close();
         }
-        catch(IOException ex){
-            Logger.getLogger(Loop.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        catch(IOException ex){}
     }
     
     public void DeleteDelList(){
