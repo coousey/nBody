@@ -5,12 +5,12 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import nbody.pkg.model.Entity;
 
-public class MixFieldDrawer implements EntityDrawer{
+public class MixFieldDrawer extends EntityDrawer{
 
     @Override
-    public void draw(ArrayList<Entity> entityList, Graphics2D dImgG2D) {
+    public void draw(ArrayList<Entity> entityList, ArrayList<Entity> fieldPointList, Graphics2D dImgG2D, Graphics2D sImgG2D) {
         
-        for(Entity e: entityList){
+        for(Entity e: fieldPointList){
             double xA = e.getXA() * 1000;
             double yA = e.getYA() * 1000;
 
@@ -34,5 +34,7 @@ public class MixFieldDrawer implements EntityDrawer{
             dImgG2D.drawLine((int)e.getX(), (int)e.getY(),
                     (int)Math.round(e.getX()+xA), (int)Math.round(e.getY()+yA)); // field lines 
         }
+        
+        super.draw(entityList, fieldPointList, dImgG2D, sImgG2D);
     }   
 }

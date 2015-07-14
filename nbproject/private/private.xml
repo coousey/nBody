@@ -3,9 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Denis/Documents/NetBeansProjects/nBody%206/src/nbody/pkg/drawers/EntityDrawer.java</file>
+            <file>file:/C:/Users/Denis/Documents/NetBeansProjects/nBody%206/src/nbody/pkg/MyEventHandler.java</file>
+            <file>file:/C:/Users/Denis/Documents/NetBeansProjects/nBody%206/src/nbody/pkg/model/World.java</file>
+            <file>file:/C:/Users/Denis/Documents/NetBeansProjects/nBody%206/src/nbody/pkg/Loop.java</file>
+            <file>file:/C:/Users/Denis/Documents/NetBeansProjects/nBody%206/src/nbody/pkg/drawers/MixFieldDrawer.java</file>
+            <file>file:/C:/Users/Denis/Documents/NetBeansProjects/nBody%206/src/nbody/pkg/drawers/ColorFieldDrawer.java</file>
+            <file>file:/C:/Users/Denis/Documents/NetBeansProjects/nBody%206/src/nbody/pkg/FieldDrawerFactory.java</file>
+            <file>file:/C:/Users/Denis/Documents/NetBeansProjects/nBody%206/src/nbody/pkg/drawers/SimpleParticleDrawer.java</file>
+            <file>file:/C:/Users/Denis/Documents/NetBeansProjects/nBody%206/src/nbody/pkg/drawers/VectorFieldDrawer.java</file>
             <file>file:/C:/Users/Denis/Documents/NetBeansProjects/nBody%206/src/view/CanvasPanel.java</file>
+            <file>file:/C:/Users/Denis/Documents/NetBeansProjects/nBody%206/src/nbody/pkg/drawers/VectorParticleDrawer.java</file>
+            <file>file:/C:/Users/Denis/Documents/NetBeansProjects/nBody%206/src/nbody/pkg/drawers/PathDrawer.java</file>
+            <file>file:/C:/Users/Denis/Documents/NetBeansProjects/nBody%206/src/nbody/pkg/model/Entity.java</file>
             <file>file:/C:/Users/Denis/Documents/NetBeansProjects/nBody%206/src/view/ButtonPanel.java</file>
-            <file>file:/C:/Users/Denis/Documents/NetBeansProjects/nBody%206/src/nbody/pkg/NBody.java</file>
+            <file>file:/C:/Users/Denis/Documents/NetBeansProjects/nBody%206/src/nbody/pkg/AccelerationCalcFactory.java</file>
         </group>
     </open-files>
 </project-private>

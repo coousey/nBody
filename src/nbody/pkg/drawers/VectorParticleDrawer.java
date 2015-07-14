@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import nbody.pkg.model.Entity;
 import nbody.pkg.model.Particle;
 
-public class VectorParticleDrawer extends SimpleParticleDrawer {
+public class VectorParticleDrawer extends EntityDrawer {
 
     @Override
-    public void draw(ArrayList<Entity> entityList, Graphics2D dImgG2D) {
+    public void draw(ArrayList<Entity> entityList, ArrayList<Entity> fieldPointList, Graphics2D dImgG2D, Graphics2D sImgG2D) {
         
-        super.draw(entityList, dImgG2D);    // particle dot
+        super.draw(entityList, fieldPointList, dImgG2D, sImgG2D);    // particle dot
         
         for(Entity e: entityList){
             Particle p = (Particle)e;

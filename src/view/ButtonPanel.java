@@ -4,13 +4,10 @@ package view;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
-import javax.swing.Box;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import nbody.pkg.Listeners;
@@ -42,33 +39,8 @@ public class ButtonPanel extends JPanel {
     private JLabel cellDLabel = new JLabel("cellD");
     private JTextField cellDField = new JTextField("20");
     
-    private final JLabel pathLabel = new JLabel("draw paht");
-    private final JCheckBox pathCheck = new JCheckBox();
-       
-    private final JLabel nonWithVectorsLabel = new JLabel("vectors");
-    private final JRadioButton nonWithVectorsRadioButton = new JRadioButton();
-    
-    private final JLabel nonLabel = new JLabel("no field");
-    private final JRadioButton nonRadioButton = new JRadioButton();
-    
-    private final JLabel colorLabel = new JLabel("color field");
-    private final JRadioButton colorRadioButton = new JRadioButton();
-    
-    private final JLabel vectorFieldLabel = new JLabel("vector field");
-    private final JRadioButton vectorRadioButton = new JRadioButton();
-    
-    private final JLabel mixLabel = new JLabel("mix field");
-    private final JRadioButton mixRadioButton = new JRadioButton();
-    
-    private final ButtonGroup fieldButtonGroup = new ButtonGroup();
-
-    private final JLabel bruteLabel = new JLabel("brute force");
-    private final JRadioButton bruteRadioButton = new JRadioButton();
-
-    private final JLabel qTreeLabel = new JLabel("barnes-hut");
-    private final JRadioButton qTreeRadioButton = new JRadioButton();
-    
-    private final ButtonGroup calcButtonGroup = new ButtonGroup();
+    private JComboBox calcComboBox = new JComboBox();
+    private JComboBox drawerComboBox = new JComboBox();
     
     private Listeners listeners;
     
@@ -129,64 +101,20 @@ public class ButtonPanel extends JPanel {
         
         add(new JPanel());
         add(new JPanel());
-           
-        pathCheck.setSelected(false);
-        pathCheck.addActionListener(listeners.getActionListener());
-        pathLabel.setHorizontalAlignment(JLabel.CENTER);
-        add(pathLabel);
-        add(pathCheck);
         
-        add(new JPanel());
-        add(new JPanel());
+        drawerComboBox.addItem("nothing");
+        drawerComboBox.addItem("path");
+        drawerComboBox.addItem("vectors");
+        drawerComboBox.addItem("vector field");
+        drawerComboBox.addItem("color field");
+        drawerComboBox.addItem("mix field");
+        drawerComboBox.addActionListener(listeners.getActionListener());
+        add(drawerComboBox);
 
-        nonWithVectorsRadioButton.addActionListener(listeners.getActionListener());
-        nonWithVectorsLabel.setHorizontalAlignment(JLabel.CENTER);
-        add(nonWithVectorsLabel);       
-        add(nonWithVectorsRadioButton); 
-        
-        nonRadioButton.setSelected(true);
-        nonRadioButton.addActionListener(listeners.getActionListener());
-        nonLabel.setHorizontalAlignment(JLabel.CENTER);
-        add(nonLabel);       
-        add(nonRadioButton); 
-        
-        colorRadioButton.addActionListener(listeners.getActionListener());
-        colorLabel.setHorizontalAlignment(JLabel.CENTER);
-        add(colorLabel);
-        add(colorRadioButton); 
-        
-        vectorRadioButton.addActionListener(listeners.getActionListener());
-        vectorFieldLabel.setHorizontalAlignment(JLabel.CENTER);
-        add(vectorFieldLabel);
-        add(vectorRadioButton);
-        
-        mixRadioButton.addActionListener(listeners.getActionListener());
-        mixLabel.setHorizontalAlignment(JLabel.CENTER);
-        add(mixLabel);
-        add(mixRadioButton);
-        
-        add(new JPanel());
-        add(new JPanel());
-        
-        fieldButtonGroup.add(nonWithVectorsRadioButton);
-        fieldButtonGroup.add(nonRadioButton);
-        fieldButtonGroup.add(colorRadioButton);
-        fieldButtonGroup.add(vectorRadioButton);
-        fieldButtonGroup.add(mixRadioButton);
-
-        bruteRadioButton.addActionListener(listeners.getActionListener());
-        bruteLabel.setHorizontalAlignment(JLabel.CENTER);
-        add(bruteLabel);
-        add(bruteRadioButton);
-        
-        qTreeRadioButton.setSelected(true);
-        qTreeRadioButton.addActionListener(listeners.getActionListener());
-        qTreeLabel.setHorizontalAlignment(JLabel.CENTER);
-        add(qTreeLabel);
-        add(qTreeRadioButton);
-        
-        calcButtonGroup.add(bruteRadioButton);
-        calcButtonGroup.add(qTreeRadioButton);
+        calcComboBox.addItem("barnes-hut");
+        calcComboBox.addItem("brute force");
+        calcComboBox.addActionListener(listeners.getActionListener());
+        add(calcComboBox);
     }
     
     public int getRandN(){
@@ -298,13 +226,6 @@ public class ButtonPanel extends JPanel {
     public JButton getSaveButton(){ return saveButton; }
     public JButton getLoadButton(){ return loadButton; }
     
-    public boolean getPathCheck(){ return pathCheck.isSelected(); }
-    
-    public JRadioButton getNonWithVectorsRadioButton(){ return nonWithVectorsRadioButton; }
-    public JRadioButton getNonRadioButton(){ return nonRadioButton; }
-    public JRadioButton getColorRadioButton(){ return colorRadioButton; }
-    public JRadioButton getVectorRadioButton(){ return vectorRadioButton; }
-    public JRadioButton getMixRadioButton(){ return mixRadioButton; }
-    public JRadioButton getBruteRadioButton(){ return bruteRadioButton; }
-    public JRadioButton getQTreeRadioButton(){ return qTreeRadioButton; }
+    public JComboBox getDrawerComboBox(){ return drawerComboBox; }
+    public JComboBox getCalcComboBox(){ return calcComboBox; }  
 }

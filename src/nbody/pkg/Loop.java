@@ -17,12 +17,14 @@ public class Loop {
         this.world = world;
         this.window = window;
         eventHandler = new MyEventHandler();
-        this.world.setWidth(window.getCanvasPanel().getWidth());
-        this.world.setHeight(window.getCanvasPanel().getHeight());
-        this.world.setCellD(window.getButtonPanel().getCellD());
-        this.world.setG(window.getButtonPanel().getG());
-        this.world.setDt(window.getButtonPanel().getDt());
+        world.setWidth(window.getCanvasPanel().getWidth());
+        world.setHeight(window.getCanvasPanel().getHeight());
+        world.setCellD(window.getButtonPanel().getCellD());
+        world.setG(window.getButtonPanel().getG());
+        world.setDt(window.getButtonPanel().getDt());
         window.getCanvasPanel().setBufferedImages();
+        world.setAccCalc(AccelerationCalcFactory.getAccCalc((String) window.getButtonPanel().getCalcComboBox().getSelectedItem()));
+        window.getCanvasPanel().setDrawer(FieldDrawerFactory.getEntityDrawer((String) window.getButtonPanel().getDrawerComboBox().getSelectedItem()));
     }
     
     public void loop(){
@@ -35,7 +37,11 @@ public class Loop {
             startTime = System.currentTimeMillis();
             
             if(world.isRunning()){
-                world.update();
+                world.updateParticles();
+                
+                String drawer = (String) window.getButtonPanel().getDrawerComboBox().getSelectedItem();
+                if(("vector field".equals(drawer)) || ("color field".equals(drawer)) || ("mix field".equals(drawer)))
+                    world.updateField();
                 world.addCycle(); 
             }               
             

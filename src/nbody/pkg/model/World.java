@@ -37,22 +37,15 @@ public class World {
     private Color backgroundColor = Color.WHITE;
     private int nrOfParticlesCreated;
     
-    private AccelerationCalculator particleAccCalc;
-    private AccelerationCalculator fieldAccCalc;
+    private AccelerationCalculator accCalc;
     private final RandomGenerator ranGen = new RandomGenerator();     
     private final ArrayList<Entity> particleList = new ArrayList<>();
     private final ArrayList<Entity> delList = new ArrayList<>();
     private final ArrayList<Entity> fieldPointList = new ArrayList<>();
     
-    public World(){
-        
-        particleAccCalc = new QTreeAccCalc();
-        fieldAccCalc = new QTreeAccCalc();
-    }
+    public void updateParticles(){
     
-    public void update(){
-    
-        particleAccCalc.CalculateAcceleration(particleList, particleList,
+        accCalc.CalculateAcceleration(particleList, particleList,
             (width/2) - (width/2)*range,(height/2) - (width/2)*range,
             (width/2) + (width/2)*range,(height/2) + (width/2)*range,
             0.5, G);
@@ -66,14 +59,15 @@ public class World {
         }
         
         DeleteDelList();
-        calcCenterOfMass();
+        calcCenterOfMass();            
+    }
+    
+    public void updateField(){
         
-        if(fieldAccCalc != null){            
-            fieldAccCalc.CalculateAcceleration(fieldPointList, particleList,
-                (width/2) - (width/2)*range,(height/2) - (width/2)*range,
-                (width/2) + (width/2)*range,(height/2) + (width/2)*range,
-                0.5, G);
-        }
+        accCalc.CalculateAcceleration(fieldPointList, particleList,
+            (width/2) - (width/2)*range,(height/2) - (width/2)*range,
+            (width/2) + (width/2)*range,(height/2) + (width/2)*range,
+            0.5, G);
     }
     
     public void clear(){
@@ -252,8 +246,7 @@ public class World {
     public ArrayList<Entity> getFieldPointList(){ return fieldPointList; }
     public ArrayList<Entity> getDelList(){ return delList; }
     
-    public void setParticleAccCalc(AccelerationCalculator accCalc){ this.particleAccCalc = accCalc; }
-    public void setFieldAccCalc(AccelerationCalculator accCalc){ this.fieldAccCalc = accCalc; }
+    public void setAccCalc(AccelerationCalculator accCalc){ this.accCalc = accCalc; }
     
     public void setCellD(int cellD){ this.cellD = cellD; }
     public int getCellD(){ return cellD; }

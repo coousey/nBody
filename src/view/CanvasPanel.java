@@ -8,11 +8,13 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import nbody.pkg.drawers.EntityDrawer;
 import nbody.pkg.drawers.PathDrawer;
-import nbody.pkg.drawers.SimpleParticleDrawer;
+import nbody.pkg.model.Entity;
+import nbody.pkg.model.Particle;
 
 public class CanvasPanel extends JPanel{
     
@@ -26,24 +28,23 @@ public class CanvasPanel extends JPanel{
     
     private final World world;
     private final Window window;
-    private EntityDrawer particleDrawer;
-    private EntityDrawer fieldDrawer;
-    private EntityDrawer pathDrawer;
+    private EntityDrawer entityDrawer;
     
     public CanvasPanel(Window window, World world){
         
         this.world = world;
         this.window = window;
-        particleDrawer = new SimpleParticleDrawer();
-        fieldDrawer = null;   
-        pathDrawer = new PathDrawer();
     }
     
     public void draw(double fps, int cycles){
 
         panelG2D = (Graphics2D)getGraphics();
+        
+        if(window.getButtonPanel().getDrawerComboBox().getSelectedItem().equals("mix field")) // setting black backgroud for mix field
+            world.setBackgroundColor(Color.BLACK);
+        else world.setBackgroundColor(Color.WHITE);
   
-        if(!window.getButtonPanel().getPathCheck()){               
+        if(!window.getButtonPanel().getDrawerComboBox().getSelectedItem().equals("path")){               
             imgG2D.setColor(world.getBackgroundColor());
             imgG2D.fillRect(0,0,getWidth(), getHeight());
 
@@ -55,35 +56,12 @@ public class CanvasPanel extends JPanel{
         dImgG2D.fillRect(0,0, getWidth(), getHeight());  
         dImgG2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER)); 
           
-        // path
-        if(window.getButtonPanel().getPathCheck())
-            pathDrawer.draw(world.getParticleList(), sImgG2D);
+        entityDrawer.draw(world.getParticleList(), world.getFieldPointList(), dImgG2D, sImgG2D);
+        drawSelected();
+        drawMassCenter();
+        drawGUI(fps);
         
-        // field
-        if(fieldDrawer != null) 
-            fieldDrawer.draw(world.getFieldPointList(), dImgG2D);
-        
-        // particles
-        particleDrawer.draw(world.getParticleList(), dImgG2D);
-        
-        dImgG2D.setColor(Color.RED);
-        
-        // mass center
-        if(world.getN() > 1 && world.getCycles() > 0)
-            dImgG2D.drawOval((int)(world.getMassCenterX() - world.getMassCenterCircleSize()/2),
-                             (int)(world.getMassCenterY()- world.getMassCenterCircleSize()/2),
-                             (int)world.getMassCenterCircleSize(),(int)world.getMassCenterCircleSize());
-       
-        dImgG2D.drawString("n             " + Integer.toString(world.getN()), 10, 15); 
-        dImgG2D.drawString("total m   " + Integer.toString((int)world.getTotalMass()), 10, 35);
-        dImgG2D.drawString("fps         " + String.format("%.4f",fps) , 10, 55);
-        dImgG2D.drawString("cycles     " + (int)cycles , 10, 75);
-        
-        dImgG2D.drawString(" pan: mouse      add: Ctrl + mouse      zoom: Shift + mouse      select: Alt + mouse", 10, getHeight()-20);
-        dImgG2D.drawLine(10, getHeight() - 45, (int)(100*world.getScale()), getHeight() - 45);
-        dImgG2D.drawString(String.format("%.4f"+ " %%",world.getScale()*100), 40, getHeight() - 50);
-
-        if(window.getButtonPanel().getPathCheck()) imgG2D.drawImage(sImg, 0, 0, null);                          
+        if(window.getButtonPanel().getDrawerComboBox().getSelectedItem().equals("path")) imgG2D.drawImage(sImg, 0, 0, null);                          
         imgG2D.drawImage(dImg, 0, 0, null);           
         panelG2D.drawImage(img, 0, 0, null);
 
@@ -105,6 +83,51 @@ public class CanvasPanel extends JPanel{
         dImgG2D.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON));
     }
     
+    private void drawGUI(double fps){
+        
+        dImgG2D.drawString("n             " + Integer.toString(world.getN()), 10, 15); 
+        dImgG2D.drawString("total m   " + Integer.toString((int)world.getTotalMass()), 10, 35);
+        dImgG2D.drawString("fps         " + String.format("%.4f",fps) , 10, 55);
+        dImgG2D.drawString("cycles     " + (int)world.getCycles() , 10, 75);
+        
+        dImgG2D.setColor(Color.RED);
+        dImgG2D.drawString(" pan: mouse      add: Ctrl + mouse      zoom: Shift + mouse      select: Alt + mouse", 10, getHeight()-20);
+        dImgG2D.drawLine(10, getHeight() - 45, (int)(100*world.getScale()), getHeight() - 45);
+        dImgG2D.drawString(String.format("%.4f"+ " %%",world.getScale()*100), 40, getHeight() - 50);
+    }
+    
+    private void drawSelected(){
+        
+        for(Entity e: world.getParticleList()){
+            Particle p = (Particle)e;
+            if(p.isSelected()){
+
+                dImgG2D.drawOval((int)(e.getX()-2*p.getR()), (int)(p.getY()-2*p.getR()), // circle surroundig the particle dot
+                    (int)(2*(p.getR()*2)), (int)(2*(p.getR()*2))); 
+                
+                dImgG2D.setColor(Color.RED);
+                dImgG2D.drawString("nr  " +  p.getNr() , 10, 100);
+                dImgG2D.drawString("m   " +  p.getM() , 10, 120);
+                dImgG2D.drawString("Vx  " +  String.format("%.4f", p.getXV()) , 10, 140);
+                dImgG2D.drawString("Vy  " +  String.format("%.4f", p.getYV()) , 10, 160);
+                dImgG2D.drawString("Ax  " +  String.format("%.4f", p.getXA()) , 10, 180);
+                dImgG2D.drawString("Ay  " +  String.format("%.4f", p.getYA()) , 10, 200);
+                dImgG2D.drawString("x  " +  String.format("%.4f", p.getX()) , 10, 220);
+                dImgG2D.drawString("y  " +  String.format("%.4f", p.getY()) , 10, 240);
+            }
+        }          
+    }
+
+
+    private void drawMassCenter() {
+        
+        dImgG2D.setColor(Color.RED);
+            if(world.getN() > 1 && world.getCycles() > 0)
+                dImgG2D.drawOval((int)(world.getMassCenterX() - world.getMassCenterCircleSize()/2),
+                    (int)(world.getMassCenterY()- world.getMassCenterCircleSize()/2),
+                    (int)world.getMassCenterCircleSize(),(int)world.getMassCenterCircleSize());  
+    }
+    
     public void saveImage(int cycles){
         
     try {
@@ -112,6 +135,6 @@ public class CanvasPanel extends JPanel{
 
         } catch (IOException e) { System.out.println("IO exception in saveImage"); }
     }   
-    public void setParticleDrawer(EntityDrawer particleDrawer){ this.particleDrawer = particleDrawer; }
-    public void setFieldDrawer(EntityDrawer fieldDrawer){ this.fieldDrawer = fieldDrawer; }
+    
+    public void setDrawer(EntityDrawer entityDrawer){ this.entityDrawer = entityDrawer; }
 }

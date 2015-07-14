@@ -5,12 +5,12 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import nbody.pkg.model.Entity;
 
-public class ColorFieldDrawer implements EntityDrawer{
+public class ColorFieldDrawer extends EntityDrawer{
 
     @Override
-    public void draw(ArrayList<Entity> entityList, Graphics2D dImgG2D) {
+    public void draw(ArrayList<Entity> entityList, ArrayList<Entity> fieldPointList, Graphics2D dImgG2D, Graphics2D sImgG2D) {
         
-        for(Entity e: entityList){
+        for(Entity e: fieldPointList){
             double xA = e.getXA() * 1000;
             double yA = e.getYA() * 1000;
 
@@ -31,5 +31,7 @@ public class ColorFieldDrawer implements EntityDrawer{
             dImgG2D.fillRect((int)(e.getX()-e.getWorld().getCellD()/2),(int)(e.getY()-e.getWorld().getCellD()/2),
                     e.getWorld().getCellD(), e.getWorld().getCellD()); // field rectangle
         }
+        
+        super.draw(entityList, fieldPointList, dImgG2D, null);
     }    
 }
