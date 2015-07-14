@@ -2,7 +2,7 @@ package nbody.pkg.model;
 
 import java.util.ArrayList;
 
-public class Particle extends Entity{
+public class Particle extends Point{
     
     private final int nr;
     private double xV;
@@ -33,13 +33,13 @@ public class Particle extends Entity{
         yV += yA*dt;   
     }
         
-    public void colision(ArrayList<Entity> particleList, double scale){
+    public void colision(ArrayList<Point> particleList, double scale){
         
         double xD; 
         double yD;
         
-        for(Entity e: particleList ){
-            Particle p = (Particle)e;
+        for(Point po: particleList ){
+            Particle p = (Particle)po;
             xD = p.x - x; 
             yD = p.y - y;
             

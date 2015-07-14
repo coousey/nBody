@@ -1,6 +1,7 @@
 
 package nbody.pkg;
 
+import nbody.pkg.accelerationCalculators.Algorithm;
 import view.Window;
 import nbody.pkg.model.World;
 
@@ -25,8 +26,8 @@ public class Loop {
         world.setDt(window.getButtonPanel().getDt());
         window.getCanvasPanel().setBufferedImages();
         
-        world.setAccCalc(AccelerationCalcFactory.getAccCalc((String) window.getButtonPanel().getCalcComboBox().getSelectedItem()));
-        window.getCanvasPanel().setDrawer(FieldDrawerFactory.getEntityDrawer((String) window.getButtonPanel().getDrawerComboBox().getSelectedItem()));
+        world.setAlgorithm(AlgorithmFactory.getAlgorithm((String) window.getButtonPanel().getCalcComboBox().getSelectedItem()));
+        window.getCanvasPanel().setDrawer(PointDrawerFactory.getPointDrawer((String) window.getButtonPanel().getDrawerComboBox().getSelectedItem()));
     }
     
     public void loop(){

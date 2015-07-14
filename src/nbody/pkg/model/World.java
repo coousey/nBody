@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import nbody.pkg.Loop;
 import nbody.pkg.RandomGenerator;
-import nbody.pkg.accelerationCalculators.AccelerationCalculator;
+import nbody.pkg.accelerationCalculators.Algorithm;
 
 public class World {
       
@@ -36,20 +36,21 @@ public class World {
     private Color backgroundColor;
     private int nrOfParticlesCreated;
     
-    private AccelerationCalculator accCalc;
-    private final RandomGenerator ranGen = new RandomGenerator();     
-    private final ArrayList<Entity> particleList = new ArrayList<>();
-    private final ArrayList<Entity> delList = new ArrayList<>();
-    private final ArrayList<Entity> fieldPointList = new ArrayList<>();
+    private Algorithm algorithm; 
+    private final RandomGenerator ranGen = new RandomGenerator(); 
+    
+    private final ArrayList<Point> particleList = new ArrayList<>();
+    private final ArrayList<Point> delList = new ArrayList<>();
+    private final ArrayList<Point> fieldPointList = new ArrayList<>();
     
     public void updateParticles(){
     
-        accCalc.CalculateAcceleration(particleList, particleList,
+        algorithm.CalculateAcceleration(particleList, particleList,
             (width/2) - (width/2)*range,(height/2) - (width/2)*range,
             (width/2) + (width/2)*range,(height/2) + (width/2)*range,
             0.5, G);
         
-        for(Entity e: particleList){ 
+        for(Point e: particleList){ 
             Particle p = (Particle)e;
             
             p.integrate(dt);
@@ -63,7 +64,7 @@ public class World {
     
     public void updateField(){
         
-        accCalc.CalculateAcceleration(fieldPointList, particleList,
+        algorithm.CalculateAcceleration(fieldPointList, particleList,
             (width/2) - (width/2)*range,(height/2) - (width/2)*range,
             (width/2) + (width/2)*range,(height/2) + (width/2)*range,
             0.5, G);
@@ -105,7 +106,7 @@ public class World {
         double minD = Double.POSITIVE_INFINITY;
         double d;
         
-        for(Entity e: particleList){ 
+        for(Point e: particleList){ 
             Particle p = (Particle)e;
             
             p.setSelected(false);
@@ -124,7 +125,7 @@ public class World {
     
     public void translate(double xD, double yD){
         
-       for(Entity e: particleList){              
+       for(Point e: particleList){              
             e.setX(e.getX() + xD);
             e.setY(e.getY() + yD);
        }     
@@ -136,7 +137,7 @@ public class World {
         scale += scale*zoom ;
         range += range*zoom;
         
-        for(Entity e: particleList){ 
+        for(Point e: particleList){ 
             Particle p = (Particle)e;
             
             p.setX( p.getX() + (p.getX() - pressX)*zoom );
@@ -155,12 +156,12 @@ public class World {
         
         for(int i = 0; i < height+cellD; i+= cellD){
             for(int j = 0; j < width+cellD; j+= cellD){             
-                fieldPointList.add(new Entity(j, i, this ));
+                fieldPointList.add(new Point(j, i, this ));
             }
         }
     }
     
-    public void outOfRangeToDelList(Entity e){        // kasuje cząsteczki poza zasięgiem drzewa na podstawie range  
+    public void outOfRangeToDelList(Point e){        // kasuje cząsteczki poza zasięgiem drzewa na podstawie range  
         if(e.getX() < (width/2) - (width/2)*range ||
            e.getX() > (width/2) + (width/2)*range ||
            e.getY() < (height/2) - (width/2)*range ||
@@ -175,7 +176,7 @@ public class World {
             printWriter.println(cycles);
             printWriter.println(nrOfParticlesCreated);
             
-            for(Entity e: particleList){ 
+            for(Point e: particleList){ 
                Particle p = (Particle)e;
                
                printWriter.println(p.x+" "+p.y+" " + p.getXV() + " " + p.getYV()+" " + p.getM());
@@ -229,7 +230,7 @@ public class World {
         double x = 0;
         double y = 0;
         
-        for(Entity e: particleList){  
+        for(Point e: particleList){  
             Particle p = (Particle)e;
             x += p.getM()*p.getX();
             y += p.getM()*p.getY();
@@ -239,11 +240,11 @@ public class World {
         massCenterY = y/totalMass;
     }
     
-    public ArrayList<Entity> getParticleList(){ return particleList; }
-    public ArrayList<Entity> getFieldPointList(){ return fieldPointList; }
-    public ArrayList<Entity> getDelList(){ return delList; }
+    public ArrayList<Point> getParticleList(){ return particleList; }
+    public ArrayList<Point> getFieldPointList(){ return fieldPointList; }
+    public ArrayList<Point> getDelList(){ return delList; }
     
-    public void setAccCalc(AccelerationCalculator accCalc){ this.accCalc = accCalc; }
+    public void setAlgorithm(Algorithm algorithm){ this.algorithm = algorithm; }
     
     public void setCellD(int cellD){ this.cellD = cellD; }
     public int getCellD(){ return cellD; }

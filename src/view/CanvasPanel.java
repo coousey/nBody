@@ -10,8 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import nbody.pkg.drawers.EntityDrawer;
-import nbody.pkg.model.Entity;
+import nbody.pkg.drawers.PointDrawer;
+import nbody.pkg.model.Point;
 import nbody.pkg.model.Particle;
 
 public class CanvasPanel extends JPanel{
@@ -26,7 +26,7 @@ public class CanvasPanel extends JPanel{
     
     private final World world;
     private final Window window;
-    private EntityDrawer entityDrawer;
+    private PointDrawer pointDrawer;
     
     public CanvasPanel(Window window, World world){
         
@@ -45,7 +45,7 @@ public class CanvasPanel extends JPanel{
         dImgG2D.fillRect(0,0, getWidth(), getHeight());  
         dImgG2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER)); 
           
-        entityDrawer.draw(world.getParticleList(), world.getFieldPointList(), dImgG2D, sImgG2D);
+        pointDrawer.draw(world.getParticleList(), world.getFieldPointList(), dImgG2D, sImgG2D);
         drawSelected();
         drawMassCenter();
         drawGUI(fps);
@@ -87,11 +87,11 @@ public class CanvasPanel extends JPanel{
     
     private void drawSelected(){
         
-        for(Entity e: world.getParticleList()){
-            Particle p = (Particle)e;
+        for(Point po: world.getParticleList()){
+            Particle p = (Particle)po;
             if(p.isSelected()){
 
-                dImgG2D.drawOval((int)(e.getX()-2*p.getR()), (int)(p.getY()-2*p.getR()), // circle surroundig the particle dot
+                dImgG2D.drawOval((int)(p.getX()-2*p.getR()), (int)(p.getY()-2*p.getR()), // circle surroundig the particle dot
                     (int)(2*(p.getR()*2)), (int)(2*(p.getR()*2))); 
                 
                 dImgG2D.setColor(Color.RED);
@@ -139,5 +139,5 @@ public class CanvasPanel extends JPanel{
         } catch (IOException e) { System.out.println("IO exception in saveImage"); }
     }   
     
-    public void setDrawer(EntityDrawer entityDrawer){ this.entityDrawer = entityDrawer; }
+    public void setDrawer(PointDrawer entityDrawer){ this.pointDrawer = entityDrawer; }
 }

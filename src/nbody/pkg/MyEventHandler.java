@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.util.Stack;
 import java.awt.event.ComponentEvent;
+import nbody.pkg.accelerationCalculators.Algorithm;
 
 public class MyEventHandler {  
     
@@ -47,11 +48,11 @@ public class MyEventHandler {
                     world.loadStateFromFile();
                 // drawer comboBox
                 else if(ae.getSource() == window.getButtonPanel().getDrawerComboBox()){
-                    window.getCanvasPanel().setDrawer(FieldDrawerFactory.getEntityDrawer((String) window.getButtonPanel().getDrawerComboBox().getSelectedItem()));
+                    window.getCanvasPanel().setDrawer(PointDrawerFactory.getPointDrawer((String) window.getButtonPanel().getDrawerComboBox().getSelectedItem()));
                 }
                 // calcComboBox
                 else if(ae.getSource() == window.getButtonPanel().getCalcComboBox()){
-                    world.setAccCalc(AccelerationCalcFactory.getAccCalc((String) window.getButtonPanel().getCalcComboBox().getSelectedItem()));
+                    world.setAlgorithm(AlgorithmFactory.getAlgorithm((String) window.getButtonPanel().getCalcComboBox().getSelectedItem()));
                 }
             }
             

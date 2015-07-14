@@ -33,11 +33,14 @@ public class ButtonPanel extends JPanel {
     private JLabel GLabel = new JLabel("G");
     private JTextField GField = new JTextField("1");
 
-    private JLabel cellDLabel = new JLabel("cellD");
+    private JLabel cellDLabel = new JLabel("cell size");
     private JTextField cellDField = new JTextField("20");
     
-    private JComboBox calcComboBox = new JComboBox();
+    private JLabel drawLabel = new JLabel("draw");
     private JComboBox drawerComboBox = new JComboBox();
+    
+    private JLabel algorithmLabel = new JLabel("algorithm");
+    private JComboBox calcComboBox = new JComboBox();
     
     private Listeners listeners;
     
@@ -99,6 +102,8 @@ public class ButtonPanel extends JPanel {
         add(new JPanel());
         add(new JPanel());
         
+        drawLabel.setHorizontalAlignment(JLabel.CENTER);
+        add(drawLabel);
         drawerComboBox.addItem("nothing");
         drawerComboBox.addItem("path");
         drawerComboBox.addItem("vectors");
@@ -108,6 +113,8 @@ public class ButtonPanel extends JPanel {
         drawerComboBox.addActionListener(listeners.getActionListener());
         add(drawerComboBox);
 
+        algorithmLabel.setHorizontalAlignment(JLabel.CENTER);
+        add(algorithmLabel);
         calcComboBox.addItem("barnes-hut");
         calcComboBox.addItem("brute force");
         calcComboBox.addActionListener(listeners.getActionListener());

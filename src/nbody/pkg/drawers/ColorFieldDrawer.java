@@ -3,16 +3,16 @@ package nbody.pkg.drawers;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import nbody.pkg.model.Entity;
+import nbody.pkg.model.Point;
 
-public class ColorFieldDrawer extends EntityDrawer{
+public class ColorFieldDrawer extends PointDrawer{
 
     @Override
-    public void draw(ArrayList<Entity> entityList, ArrayList<Entity> fieldPointList, Graphics2D dImgG2D, Graphics2D sImgG2D) {
+    public void draw(ArrayList<Point> particleList, ArrayList<Point> pointList, Graphics2D dImgG2D, Graphics2D sImgG2D) {
         
-        for(Entity e: fieldPointList){
-            double xA = e.getXA() * 1000;
-            double yA = e.getYA() * 1000;
+        for(Point p: pointList){
+            double xA = p.getXA() * 1000;
+            double yA = p.getYA() * 1000;
 
             int a = (int)Math.sqrt(xA*xA + yA*yA); // for acceleration to color convertion
 
@@ -28,10 +28,10 @@ public class ColorFieldDrawer extends EntityDrawer{
 
             dImgG2D.setColor(color);
 
-            dImgG2D.fillRect((int)(e.getX()-e.getWorld().getCellD()/2),(int)(e.getY()-e.getWorld().getCellD()/2),
-                    e.getWorld().getCellD(), e.getWorld().getCellD()); // field rectangle
+            dImgG2D.fillRect((int)(p.getX()-p.getWorld().getCellD()/2),(int)(p.getY()-p.getWorld().getCellD()/2),
+                    p.getWorld().getCellD(), p.getWorld().getCellD()); // field rectangle
         }
         
-        super.draw(entityList, fieldPointList, dImgG2D, null);
+        super.draw(particleList, pointList, dImgG2D, null);
     }    
 }

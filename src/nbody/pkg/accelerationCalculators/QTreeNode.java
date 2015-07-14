@@ -1,6 +1,6 @@
 package nbody.pkg.accelerationCalculators;
 
-import nbody.pkg.model.Entity;
+import nbody.pkg.model.Point;
 
 public class QTreeNode {
     
@@ -19,7 +19,7 @@ public class QTreeNode {
     private double massCenterY;
     
     private QTreeNode parent;
-    private Entity entity = null;
+    private Point point = null;
     
     private String dir;
     private int level;
@@ -58,8 +58,8 @@ public class QTreeNode {
     public QTreeNode getSE(){ return se; }
     public QTreeNode getParent(){ return parent; }
 
-    public void setEntity(Entity e){ this.entity = e; }
-    public Entity getEntity(){ return this.entity; }
+    public void setPoint(Point p){ this.point = p; }
+    public Point getPoint(){ return this.point; }
     
     public double getX(){ return x; }
     public double getY(){ return y; }

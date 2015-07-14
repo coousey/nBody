@@ -1,6 +1,6 @@
 package nbody.pkg.accelerationCalculators;
 
-import nbody.pkg.model.Entity;
+import nbody.pkg.model.Point;
 
 public class QTree {
     
@@ -12,32 +12,32 @@ public class QTree {
         this.root.setLevel(1);
     } 
     
-    public void insertParticle(QTreeNode node, Entity e){ 
+    public void insertPoint(QTreeNode node, Point p){ 
         
-        double m = node.getM() + e.getM();
-        node.setMassCenterX((node.getMassCenterX()*node.getM() + e.getX()*e.getM())/m);
-        node.setMassCenterY((node.getMassCenterY()*node.getM() + e.getY()*e.getM())/m);
+        double m = node.getM() + p.getM();
+        node.setMassCenterX((node.getMassCenterX()*node.getM() + p.getX()*p.getM())/m);
+        node.setMassCenterY((node.getMassCenterY()*node.getM() + p.getY()*p.getM())/m);
         node.setM(m);
 
-        if(node.getEntity() == null && node.getNW() == null){  // external epmty     
-            node.setEntity(e);            
+        if(node.getPoint() == null && node.getNW() == null){  // external epmty     
+            node.setPoint(p);            
         }
         
-        else if(node.getEntity() == null && node.getNW() != null ){ // internal empty
+        else if(node.getPoint() == null && node.getNW() != null ){ // internal empty
             
-            if(e.getX() > node.getNW().getX() && e.getX() < node.getNW().getX() + node.getNW().getW() && e.getY() > node.getNW().getY() && e.getY() < node.getNW().getY()+node.getNW().getH()) 
-                insertParticle(node.getNW(),e);
-            else if(e.getX() > node.getNE().getX() && e.getX() < node.getNE().getX() + node.getNE().getW() && e.getY() > node.getNE().getY() && e.getY() < node.getNE().getY()+node.getNE().getH())
-                insertParticle(node.getNE(),e);
-            else if(e.getX() > node.getSW().getX() && e.getX() < node.getSW().getX()+node.getSW().getW() && e.getY() > node.getSW().getY() && e.getY() < node.getSW().getY()+node.getSW().getH())
-                insertParticle(node.getSW(),e);
-            else if(e.getX() > node.getSE().getX() && e.getX() < node.getSE().getX()+node.getSE().getW() && e.getY() > node.getSE().getY() && e.getY() < node.getSE().getY()+node.getSE().getH())  
-                insertParticle(node.getSE(),e);               
+            if(p.getX() > node.getNW().getX() && p.getX() < node.getNW().getX() + node.getNW().getW() && p.getY() > node.getNW().getY() && p.getY() < node.getNW().getY()+node.getNW().getH()) 
+                insertPoint(node.getNW(),p);
+            else if(p.getX() > node.getNE().getX() && p.getX() < node.getNE().getX() + node.getNE().getW() && p.getY() > node.getNE().getY() && p.getY() < node.getNE().getY()+node.getNE().getH())
+                insertPoint(node.getNE(),p);
+            else if(p.getX() > node.getSW().getX() && p.getX() < node.getSW().getX()+node.getSW().getW() && p.getY() > node.getSW().getY() && p.getY() < node.getSW().getY()+node.getSW().getH())
+                insertPoint(node.getSW(),p);
+            else if(p.getX() > node.getSE().getX() && p.getX() < node.getSE().getX()+node.getSE().getW() && p.getY() > node.getSE().getY() && p.getY() < node.getSE().getY()+node.getSE().getH())  
+                insertPoint(node.getSE(),p);               
         } 
         
-        else if(node.getEntity() != null && node.getNW() == null){ // external full 
+        else if(node.getPoint() != null && node.getNW() == null){ // external full 
             
-            Entity op = node.getEntity(); 
+            Point op = node.getPoint(); 
 
             double x = node.getX();
             double y = node.getY();
@@ -50,24 +50,24 @@ public class QTree {
             node.setSE(new QTreeNode((x+w),(y+h),w,h,node));                 
             
             if(op.getX() > node.getNW().getX() && op.getX() < node.getNW().getX() + node.getNW().getW() && op.getY() > node.getNW().getY() && op.getY() < node.getNW().getY()+node.getNW().getH()) 
-                insertParticle(node.getNW(),op);  
+                insertPoint(node.getNW(),op);  
             else if(op.getX() > node.getNE().getX() && op.getX() < node.getNE().getX() + node.getNE().getW() && op.getY() > node.getNE().getY() && op.getY() < node.getNE().getY()+node.getNE().getH())
-                insertParticle(node.getNE(),op);
+                insertPoint(node.getNE(),op);
             else if(op.getX() > node.getSW().getX() && op.getX() < node.getSW().getX()+node.getSW().getW() && op.getY() > node.getSW().getY() && op.getY() < node.getSW().getY()+node.getSW().getH())
-                insertParticle(node.getSW(),op);
+                insertPoint(node.getSW(),op);
             else if(op.getX() > node.getSE().getX() && op.getX() < node.getSE().getX()+node.getSE().getW() && op.getY() > node.getSE().getY() && op.getY() < node.getSE().getY()+node.getSE().getH()) 
-                insertParticle(node.getSE(),op);
+                insertPoint(node.getSE(),op);
             
-            if(e.getX() > node.getNW().getX() && e.getX() < node.getNW().getX() + node.getNW().getW() && e.getY() > node.getNW().getY() && e.getY() < node.getNW().getY()+node.getNW().getH()) 
-                insertParticle(node.getNW(),e);
-            else if(e.getX() > node.getNE().getX() && e.getX() < node.getNE().getX() + node.getNE().getW() && e.getY() > node.getNE().getY() && e.getY() < node.getNE().getY()+node.getNE().getH())
-                insertParticle(node.getNE(),e);
-            else if(e.getX() > node.getSW().getX() && e.getX() < node.getSW().getX()+node.getSW().getW() && e.getY() > node.getSW().getY() && e.getY() < node.getSW().getY()+node.getSW().getH())
-                insertParticle(node.getSW(),e);
-            else if(e.getX() > node.getSE().getX() && e.getX() < node.getSE().getX()+node.getSE().getW() && e.getY() > node.getSE().getY() && e.getY() < node.getSE().getY()+node.getSE().getH()) 
-                insertParticle(node.getSE(),e);   
+            if(p.getX() > node.getNW().getX() && p.getX() < node.getNW().getX() + node.getNW().getW() && p.getY() > node.getNW().getY() && p.getY() < node.getNW().getY()+node.getNW().getH()) 
+                insertPoint(node.getNW(),p);
+            else if(p.getX() > node.getNE().getX() && p.getX() < node.getNE().getX() + node.getNE().getW() && p.getY() > node.getNE().getY() && p.getY() < node.getNE().getY()+node.getNE().getH())
+                insertPoint(node.getNE(),p);
+            else if(p.getX() > node.getSW().getX() && p.getX() < node.getSW().getX()+node.getSW().getW() && p.getY() > node.getSW().getY() && p.getY() < node.getSW().getY()+node.getSW().getH())
+                insertPoint(node.getSW(),p);
+            else if(p.getX() > node.getSE().getX() && p.getX() < node.getSE().getX()+node.getSE().getW() && p.getY() > node.getSE().getY() && p.getY() < node.getSE().getY()+node.getSE().getH()) 
+                insertPoint(node.getSE(),p);   
             
-            node.setEntity(null); 
+            node.setPoint(null); 
         }
     }
     

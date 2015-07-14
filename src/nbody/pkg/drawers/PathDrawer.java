@@ -3,18 +3,18 @@ package nbody.pkg.drawers;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import nbody.pkg.model.Entity;
+import nbody.pkg.model.Point;
 
-public class PathDrawer extends EntityDrawer{
+public class PathDrawer extends PointDrawer{
 
     @Override
-    public void draw(ArrayList<Entity> entityList, ArrayList<Entity> fieldPointList, Graphics2D dImgG2D, Graphics2D sImgG2D) {
+    public void draw(ArrayList<Point> particleList, ArrayList<Point> pointList, Graphics2D dImgG2D, Graphics2D sImgG2D) {
 
         sImgG2D.setColor(Color.GRAY);
         
-        for(Entity e: entityList)
-            sImgG2D.fillOval((int)(e.getX()), (int)(e.getY()), 1, 1);
+        for(Point p: particleList)
+            sImgG2D.fillOval((int)(p.getX()), (int)(p.getY()), 1, 1);
         
-        super.draw(entityList, fieldPointList, dImgG2D, sImgG2D);
+        super.draw(particleList, pointList, dImgG2D, sImgG2D);
     }    
 }
