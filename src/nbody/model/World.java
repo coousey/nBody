@@ -173,7 +173,7 @@ public class World {
 
     public void saveStateToFile(){
         try{
-            PrintWriter printWriter = new PrintWriter("save.txt");       
+            PrintWriter printWriter = new PrintWriter("res//save.txt");       
             printWriter.println(cycles);
             printWriter.println(nrOfParticlesCreated);
             
@@ -195,7 +195,7 @@ public class World {
         particleList.clear();
         
         try{
-            BufferedReader br = new BufferedReader(new FileReader("save.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("res//save.txt"));
             
             String line = br.readLine();
             cycles = Integer.parseInt(line);
